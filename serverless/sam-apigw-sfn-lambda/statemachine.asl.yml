@@ -1,0 +1,18 @@
+StartAt: CallFunctionsInParallel
+States:
+  CallFunctionsInParallel:
+    Type: Parallel
+    End: true
+    Branches:
+      - StartAt: CallFunction1
+        States:
+          CallFunction1:
+            Type: Task
+            Resource: "${Function1}"
+            End: true
+      - StartAt: CallFunction2
+        States:
+          CallFunction2:
+            Type: Task
+            Resource: "${Function2}"
+            End: true
