@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: A Lambda function triggered by objects created in an S3 bucket
+
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket # Name is auto generated
+
+  LambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/
+      Handler: app.lambdaHandler
+      Runtime: nodejs16.x
+      Architectures:
+        - x86_64
+      Events:
+        S3Event:
+          Type: S3
+          Properties:
+            Bucket: !Ref S3Bucket
+            Events: s3:ObjectCreated:*
+
+Outputs:
+  BucketName:
+    Description: The name of the S3 bucket
+    Value: !Ref S3Bucket
