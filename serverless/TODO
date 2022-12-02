@@ -1,0 +1,4 @@
+- s3-event-bridge-lambda
+- s3-lambda
+- s3-sqs-lambda
+- s3-sns-lambda
