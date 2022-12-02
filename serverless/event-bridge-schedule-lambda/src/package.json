@@ -1,0 +1,13 @@
+{
+  "name": "event-bridge-schedule-lambda",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "SAM CLI",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "scripts": {
+  },
+  "devDependencies": {
+  }
+}
