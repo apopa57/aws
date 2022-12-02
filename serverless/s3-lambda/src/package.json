@@ -1,5 +1,5 @@
 {
-  "name": "scheduled-lambda",
+  "name": "s3-lambda",
   "version": "1.0.0",
   "main": "app.js",
   "author": "SAM CLI",
