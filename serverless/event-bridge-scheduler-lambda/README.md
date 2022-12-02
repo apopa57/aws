@@ -15,7 +15,7 @@ Configuring SAM deploy
 
         Setting default arguments for 'sam deploy'
         =========================================
-        Stack Name [scheduled-lambda]:
+        Stack Name [sam-app]: event-bridge-scheduler-lambda
         AWS Region [ap-northeast-1]:
         #Shows you resources changes to be deployed and require a 'Y' to initiate deploy
         Confirm changes before deploy [Y/n]: Y
@@ -29,7 +29,7 @@ Configuring SAM deploy
 ```
 Once the deploy is done, use the SAM CLI to get the logs of the function:
 ```
-AWS_PROFILE=... sam logs --stack-name scheduled-lambda --tail
+AWS_PROFILE=... sam logs --stack-name event-bridge-scheduler-lambda --tail
 ```
 ## Clean up
 ```

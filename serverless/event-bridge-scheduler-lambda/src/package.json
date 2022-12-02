@@ -1,5 +1,5 @@
 {
-  "name": "scheduled-lambda",
+  "name": "event-bridge-scheduler-lambda",
   "version": "1.0.0",
   "main": "app.js",
   "author": "SAM CLI",
