@@ -11,8 +11,7 @@ Resources:
       CodeUri: src/
       Handler: app.lambdaHandler
       Runtime: nodejs18.x
-      Architectures:
-        - arm64
+      Architectures: ["arm64"]
       Events:
         ApiEvent:
           Type: HttpApi

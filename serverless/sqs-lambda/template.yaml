@@ -14,8 +14,7 @@ Resources:
       CodeUri: src/
       Handler: app.lambdaHandler
       Runtime: nodejs16.x
-      Architectures:
-        - x86_64
+      Architectures: ["arm64"]
       Events:
         SQSEvent:
           Type: SQS
