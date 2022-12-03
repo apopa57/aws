@@ -1,4 +1,4 @@
-This is an example of a SAM application that creates an S3 bucket and a Lambda function that executes whenever there are new objects in the bucket. This application uses SAM function event configuration.
+This is an example of a SAM application that creates an S3 bucket and a Lambda function that executes whenever there are new objects in the bucket. This application uses S3 bucket notification configuration.
 
 ## How to use
 [Install the AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html) and deploy the application:
@@ -14,7 +14,7 @@ Configuring SAM deploy
 
         Setting default arguments for 'sam deploy'
         =========================================
-        Stack Name [sam-app]: s3-lambda
+        Stack Name [sam-app]: s3-bucket-notification-lambda
         AWS Region [ap-northeast-1]:
         #Shows you resources changes to be deployed and require a 'Y' to initiate deploy
         Confirm changes before deploy [y/N]: y
@@ -26,13 +26,11 @@ Configuring SAM deploy
         SAM configuration file [samconfig.toml]:
         SAM configuration environment [default]:
 ```
-Once the deploy is done, use the SAM CLI to tail the logs of the function:
-```
-AWS_PROFILE=... sam logs --stack-name s3-lambda --tail
+AWS_PROFILE=... sam logs --stack-name s3-bucket-notification-lambda --tail
 ```
 Then use the AWS CLI to create a new object in the bucket and observe the function being executed in the output of the previous command:
 ```
-aws --profile ... s3 cp template.yaml s3://$(aws --profile ... cloudformation describe-stacks --stack-name s3-lambda --query "Stacks[0].Outputs[?OutputKey=='BucketName'].OutputValue" --output text)/template.yaml
+aws --profile ... s3 cp template.yaml s3://$(aws --profile ... cloudformation describe-stacks --stack-name s3-bucket-notification-lambda --query "Stacks[0].Outputs[?OutputKey=='BucketName'].OutputValue" --output text)/template.yaml
 ```
 ## Clean up
 ```
