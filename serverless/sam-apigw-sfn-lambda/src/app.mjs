@@ -1,10 +1,10 @@
-var AWS = require('aws-sdk');
+import AWS from 'aws-sdk';
 
 const stepFunctions = new AWS.StepFunctions();
 
 const stateMachineArn = process.env.STATE_MACHINE_ARN;
 
-exports.lambdaHandler = async (event, context) => {
+export const lambdaHandler = async (event, context) => {
     console.log({ stateMachineArn });
 
     const params = {
@@ -21,3 +21,14 @@ exports.lambdaHandler = async (event, context) => {
     return stateMachineOutput;
 };
 
+export const lambdaHandler1 = async (event, context) => {
+    return {
+      lambdaHandler1: +new Date()
+    };
+};
+
+export const lambdaHandler2 = async (event, context) => {
+    return {
+      lambdaHandler2: +new Date()
+    };
+};

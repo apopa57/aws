@@ -1,0 +1,14 @@
+{
+  "name": "http-api-lambda-sfn",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "SAM CLI",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.1009.0"
+  },
+  "scripts": {
+  },
+  "devDependencies": {
+  }
+}

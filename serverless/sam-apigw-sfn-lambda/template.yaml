@@ -1,54 +1,62 @@
-AWSTemplateFormatVersion: "2010-09-09"
+AWSTemplateFormatVersion: 2010-09-09
 Transform: AWS::Serverless-2016-10-31
-Description: >
-  Simple SAM application that creates an API gateway, with an endpoint mapped to a Lambda function that calls a state machine which runs two other Lambda functions in parallel.
+Description: Simple SAM application that creates an API gateway, with an endpoint mapped to a Lambda function that calls a state machine which runs two other Lambda functions in parallel.
+
+Globals:
+  Function:
+    CodeUri: src/
+    Runtime: nodejs18.x
+    Architectures: ["arm64"]
 
 Resources:
-  HttpApi:
-    Type: AWS::Serverless::HttpApi
+  Function1:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: app.lambdaHandler1
+
+  Function2:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: app.lambdaHandler2
 
   StateMachine:
     Type: AWS::Serverless::StateMachine
     Properties:
-      DefinitionUri: statemachine.asl.yml
+      Definition:
+        StartAt: CallFunctionsInParallel
+        States:
+          CallFunctionsInParallel:
+            Type: Parallel
+            End: true
+            Branches:
+              - StartAt: CallFunction1
+                States:
+                  CallFunction1:
+                    Type: Task
+                    Resource: !GetAtt Function1.Arn
+                    End: true
+              - StartAt: CallFunction2
+                States:
+                  CallFunction2:
+                    Type: Task
+                    Resource: !GetAtt Function2.Arn
+                    End: true
       Type: EXPRESS
       Tracing:
         Enabled: true
-      DefinitionSubstitutions:
-        Function1: !GetAtt Function1.Arn
-        Function2: !GetAtt Function2.Arn
       Policies:
         - LambdaInvokePolicy:
             FunctionName: !Ref Function1
         - LambdaInvokePolicy:
             FunctionName: !Ref Function2
 
-  Function1:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: functions/function1/
-      Handler: app.lambdaHandler
-      Runtime: nodejs14.x
-      Architectures:
-        - x86_64
-
-  Function2:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: functions/function2/
-      Handler: app.lambdaHandler
-      Runtime: nodejs14.x
-      Architectures:
-        - x86_64
+  HttpApi:
+    Type: AWS::Serverless::HttpApi
 
   StateMachineCaller:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: functions/state-machine-caller/
       Handler: app.lambdaHandler
-      Runtime: nodejs14.x
-      Architectures:
-        - x86_64
       Environment:
         Variables:
           STATE_MACHINE_ARN: !GetAtt StateMachine.Arn
@@ -60,12 +68,11 @@ Resources:
             Path: /sm
             Method: get
       Policies:
-        - Version: "2012-10-17"
+        - Version: 2012-10-17
           Statement:
-            - Effect: Allow
-              Action:
-                - states:StartSyncExecution
-              Resource: !GetAtt StateMachine.Arn
+            Effect: Allow
+            Action: ["states:StartSyncExecution"]
+            Resource: !GetAtt StateMachine.Arn
 
 Outputs:
   HttpApiEndpoint:
