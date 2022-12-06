@@ -3,3 +3,4 @@ terraform.tfstate
 terraform.tfstate.backup
 samconfig.toml
 .aws-sam/
+node_modules/
