@@ -1,0 +1,15 @@
+{
+  "name": "secretsmanager-json-update-value",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "secretsmanager-json-update-value": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.224.0"
+  }
+}
