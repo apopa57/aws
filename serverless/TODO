@@ -1,0 +1,5 @@
+- example with Parameters
+- example with Mappings and FindInMap
+- example with authorizers on HTTP API
+- example with CORS configuration on HTTP API
+- example with using resolve:secretsmanager
