@@ -1,8 +1,11 @@
 This is an example of a SAM application that creates an API Gateway HTTP API and a Lambda function that is executed whenever an HTTP request is made to a specific path of the HTTP API.
 
 ## How to use
-[Install the AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html) and deploy the application:
+First, [install the AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html).
+
+Next, build and deploy the application:
 ```
+sam build
 AWS_PROFILE=... sam deploy --guided
 ```
 Here's an example of how to answer the questions in the guided deploy:

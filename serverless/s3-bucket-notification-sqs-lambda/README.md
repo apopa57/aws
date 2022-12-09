@@ -1,8 +1,11 @@
 This is an example of a SAM application that creates an S3 bucket that publishes messages to an SQS queue whenever objects are removed from the bucket. For checking easily the messages published, a Lambda function is set up to consume messages from the SQS queue.
 
 ## How to use
-[Install the AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html) and deploy the application:
+First, [install the AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html).
+
+Next, build and deploy the application:
 ```
+sam build
 AWS_PROFILE=... sam deploy --guided
 ```
 Here's an example of how to answer the questions in the guided deploy:

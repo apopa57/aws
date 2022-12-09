@@ -1,7 +1,7 @@
 This is an example of a SAM application that creates a DynamoDB table and a Lambda function that executes whenever there are changes in the table.
 
 ## How to use
-First, [install the AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html)
+First, [install the AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/install-sam-cli.html).
 
 Next, build and deploy the application:
 ```
