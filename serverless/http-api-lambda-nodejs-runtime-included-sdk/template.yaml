@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  HttpApi:
+    Type: AWS::Serverless::HttpApi
+
+  LambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Architectures: ['arm64']
+      Runtime: nodejs18.x
+      Handler: index.lambdaHandler
+      InlineCode: |
+        const { S3Client, ListBucketsCommand } = require("@aws-sdk/client-s3");
+
+        module.exports.lambdaHandler = async (event, context) => {
+          const client = new S3Client({ region: 'ap-northeast-1' });
+
+          const command = new ListBucketsCommand({});
+          const response = await client.send(command);
+
+          console.log(JSON.stringify(response.Buckets));
+
+          console.log(JSON.stringify(event));
+        };
+      Policies:
+        - Version: 2012-10-17
+          Statement:
+            Effect: Allow
+            Resource: '*'
+            Action: ['s3:ListAllMyBuckets']
+      Events:
+        HttpApiEvent:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HttpApi
+            Path: /
+            Method: GET
+
+Outputs:
+  ApiEndpoint:
+    Value: !GetAtt HttpApi.ApiEndpoint
