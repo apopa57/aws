@@ -34,7 +34,7 @@ Once the deploy is done, use the SAM CLI to get the logs of the function:
 ```
 AWS_PROFILE=... sam logs --stack-name http-api-lambda --tail
 ```
-Then use curl to execute the Lambda function via the API Gateay and observe the function being executed in the output of the previous command:
+Then use curl to execute the Lambda function via the API Gateway and observe the function being executed in the output of the previous command:
 ```
 curl $(aws --profile ... cloudformation describe-stacks --stack-name http-api-lambda --query "Stacks[0].Outputs[?OutputKey == 'ApiEndpoint'].OutputValue" --output text)/lambda_function --data '{"test": true }'
 ```
