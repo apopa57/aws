@@ -25,7 +25,10 @@ resource "aws_iam_role" "role1" {
     Statement = [
       {
         Effect = "Allow"
-        Action = "sts:AssumeRole"
+        Action = [
+	  "sts:AssumeRole",
+	  "sts:TagSession" # This is required if this role is supposed to be assumed by a principal in a different account
+	]
         Principal = {
           AWS = local.account_id
         }
@@ -56,7 +59,10 @@ resource "aws_iam_role" "role2" {
     Statement = [
       {
         Effect = "Allow"
-        Action = "sts:AssumeRole"
+        Action = [
+	  "sts:AssumeRole",
+	  "sts:TagSession" # This is required if this role is supposed to be assumed by a principal in a different account
+	]
         Principal = {
           AWS = "arn:aws:iam::${local.account_id}:role/${aws_iam_role.role1.name}"
         }
